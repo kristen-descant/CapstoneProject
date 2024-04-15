@@ -32,7 +32,7 @@ class LegalGuardian(models.Model):
     email = models.EmailField(verbose_name='email address', unique=True)
 
 class Student(AppUser):
-    legalGuardian = models.ForeignKey(LegalGuardian, related_name="students", on_delete=models.CASCADE) 
+    legalGuardian = models.ForeignKey(LegalGuardian, related_name="students", on_delete=models.CASCADE, null=True, blank=True) 
 
 class HousingRequest(models.Model):
     createdDate = models.DateField(null=True, blank=True)
