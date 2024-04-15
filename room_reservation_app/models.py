@@ -35,11 +35,11 @@ class Student(AppUser):
     legalGuardian = models.ForeignKey(LegalGuardian, related_name="students", on_delete=models.CASCADE) 
 
 class HousingRequest(models.Model):
-    createdDate = models.DateField()
-    buildingNumber = models.IntegerField()
-    unitSize = models.IntegerField()
-    floor = models.IntegerField()
-    accessible = models.BooleanField()
+    createdDate = models.DateField(null=True, blank=True)
+    buildingNumber = models.IntegerField(null=True, blank=True)
+    unitSize = models.IntegerField(null=True, blank=True)
+    floor = models.IntegerField(null=True, blank=True)
+    accessible = models.BooleanField(null=True, blank=True)
     student = models.ForeignKey(Student, related_name="housingRequests", on_delete=models.CASCADE)
 
 class RoommateRequest(models.Model):
