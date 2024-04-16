@@ -93,7 +93,7 @@ class Log_Out(UserPermissions):
 class Legal_Guardian(UserPermissions):
     # post method to create a legal guardian 
     def post(self, request):
-        newLegalGuardian = Legal_Guardian(**request.data)
+        newLegalGuardian = Legal_Guardian.objects.create(**request.data)
         newLegalGuardian.save()
 
         # serialize new legal guardian
@@ -101,6 +101,7 @@ class Legal_Guardian(UserPermissions):
 
         return Response(jsonNewLegalGuardian)
     
+    # get a legal guardian
     def get(self, request, studentID):
         # get the student object with the student id
         student = get_object_or_404(Student, id=studentID)
@@ -116,5 +117,6 @@ class Legal_Guardian(UserPermissions):
         else:
             # Return a response indicating that no legal guardian is associated with the student
             return Response({'error': 'No legal guardian found for the student.'}, status=HTTP_404_NOT_FOUND)
+
 
     

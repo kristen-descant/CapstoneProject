@@ -1,0 +1,23 @@
+{
+  "name": "room_reservation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kristen-descant/CapstoneProject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kristen-descant/CapstoneProject/issues"
+  },
+  "homepage": "https://github.com/kristen-descant/CapstoneProject#readme",
+  "dependencies": {
+    "axios": "^1.6.8"
+  }
+}
