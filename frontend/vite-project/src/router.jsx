@@ -2,6 +2,9 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import SignUpStaffPage from "./pages/SignUpStaffPage"
 import SignUpStudentPage from "./pages/SignUpStudentPage"
+import LogInStudentPage from "./pages/LogInStudentPage"
+import LogInStaffPage from "./pages/LogInStaffPage";
+
 const router = createBrowserRouter([
     {
       path: "/",
@@ -19,14 +22,14 @@ const router = createBrowserRouter([
           path: "signupstudent",
           element: <SignUpStudentPage />,
         },
-    //     {
-    //       path: "portfolio",
-    //       element: <PortfolioPage/>
-    //     },
-    //     {
-    //       path: "property/:propertyId",
-    //       element: <PropertyOverviewPage/>
-    //     },
+        {
+          path: "loginstudent",
+          element: <LogInStudentPage/>
+        },
+        {
+          path: "loginstaff",
+          element: <LogInStaffPage/>
+        },
     //     {
     //       path: "addproperty",
     //       element: <AddPropertyPage/>

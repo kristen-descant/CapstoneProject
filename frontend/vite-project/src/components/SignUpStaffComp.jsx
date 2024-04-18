@@ -2,14 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function SignUpStaffComp({
-        includeVerifyPassword,
         setEmail,
         setPassword,
         setVerifyPassword,
         setFullName,
         setTitle,
         setPhoneNumber,
-        signin,
+        signUp,
 }) {
     return (
         <>
@@ -18,7 +17,7 @@ export default function SignUpStaffComp({
             <div className="lg:mb-2 md:mb-1 sm:mb-0 mb-1 flex-nowrap">Not Staff? <Link className="rounded bg-sky-700 hover:bg-sky-900 text-white pl-1 pr-1" to="/signupstudent">Create Student Account</Link></div> 
             <div className="lg:mb-2 md:mb-1 mb-1 flex-nowrap">Already have an account? <Link className="rounded bg-sky-700 hover:bg-sky-900 text-white pl-1 pr-1" to="/loginstaff">Log In</Link></div>
       
-        <form  onSubmit={signin}>
+        <form  onSubmit={signUp}>
             <div className="flex flex-row justify-center overflow-hidden mb-1">
                 <label htmlFor="email">email:</label>
                 <input className="bg-blue-100 w-[50%]" type="text" onChange={(e) => setEmail(e.target.value)}/>
@@ -39,15 +38,12 @@ export default function SignUpStaffComp({
                 <label htmlFor="password">password:</label>
                 <input className="bg-blue-100 w-[50%]" type="password" onChange={(e) => setPassword(e.target.value)}/>
             </div>
-            {includeVerifyPassword &&
             <div className=" flex flex-row justify-center overflow-hidden mb-1">
                 <label  htmlFor="verifypassword">verify password:</label>
                 <input className="bg-blue-100 h-1/2 w-[50%]" type="password" onChange={(e) => setVerifyPassword(e.target.value)}/>
             </div>
-            }
             <div className="flex justify-center">
-            {includeVerifyPassword ? <button className="rounded bg-sky-700 hover:bg-sky-900 text-white pl-1 pr-1" type="submit">Create Account</button> :
-            <button className="rounded bg-sky-700 hover:bg-sky-900 text-white pl-1 pr-1" type="submit">Log In</button>}
+            <button className="rounded bg-sky-700 hover:bg-sky-900 text-white pl-1 pr-1" type="submit">Create Account</button>
             </div>
         </form>
         </div>

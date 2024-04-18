@@ -14,7 +14,7 @@ export default function SignupPage() {
     const [password, setPassword] = useState("");
     const [verifyPassword, setVerifyPassword] = useState("");
 
-    const signin = async (e) => {
+    const signUp = async (e) => {
         e.preventDefault();
   
         if (password !== verifyPassword) {
@@ -67,13 +67,12 @@ export default function SignupPage() {
         <div className="relative h-3/4 w-3/4 mr-8 ml-8 border-8 flex flex-col justify-evenly items-center border-white bg-zinc-800 shadow-2xl rounded-md overflow-hidden">
             
                 <SignUpStudentComp 
-                includeVerifyPassword={true}
                 setEmail={setEmail}
                 setPassword={setPassword}
                 setPhoneNumber={setPhoneNumber}
                 setFullName={setFullName}
                 setVerifyPassword={setVerifyPassword}
-                signin={signin}
+                signUp={signUp}
                 /> 
                 
             <div className="ml-2 flex items-center absolute right-[40%] bottom-[2%] text-white h-[25%] w-[20%] overflow-hidden">
