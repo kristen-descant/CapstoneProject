@@ -40,7 +40,7 @@ class HousingRequest(models.Model):
     unitSize = models.IntegerField(null=True, blank=True)
     floor = models.IntegerField(null=True, blank=True)
     accessible = models.BooleanField(null=True, blank=True)
-    student = models.ForeignKey(Student, related_name="housingRequests", on_delete=models.CASCADE)
+    user = models.ForeignKey(AppUser, related_name="housingRequests", on_delete=models.CASCADE, default=0)
 
 class RoommateRequest(models.Model):
     createdDate = models.DateField()

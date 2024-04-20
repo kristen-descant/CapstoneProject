@@ -4,16 +4,17 @@ import SignUpStaffPage from "./pages/SignUpStaffPage"
 import SignUpStudentPage from "./pages/SignUpStudentPage"
 import LogInStudentPage from "./pages/LogInStudentPage"
 import LogInStaffPage from "./pages/LogInStaffPage";
+import HomePage from "./pages/HomePage";
 
 const router = createBrowserRouter([
     {
       path: "/",
       element: <App />,
       children: [
-        // {
-        //   index: true,
-        //   element: <SignUpStaffPage /> ,
-        // },
+        {
+          index: true,
+          element: <HomePage />,
+        },
         {
           path: "signupstaff",
           element: <SignUpStaffPage />,

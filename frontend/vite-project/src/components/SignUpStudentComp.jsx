@@ -26,7 +26,7 @@ export default function SignUpStudentComp({
                <input className="bg-blue-100 w-[50%] ml-3" type="text" onChange={(e) => setFullName(e.target.value)}/>
            </div>
            <div className="flex flex-row justify-center overflow-hidden mb-1">
-               <label htmlFor="title">ph0ne number:</label>
+               <label htmlFor="title">phone number:</label>
                <input className="bg-blue-100 w-[50%] ml-3" type="text" onChange={(e) => setPhoneNumber(e.target.value)}/>
            </div>
            <div className="flex flex-row justify-center overflow-hidden mb-1">

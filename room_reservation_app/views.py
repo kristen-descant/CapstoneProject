@@ -16,13 +16,18 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth.hashers import check_password
 from django.core.exceptions import ValidationError
 from .userPermissions import UserPermissions
-from .models import RoomAssignment, RoommateRequest, HousingRequest, Staff, Student, LegalGuardian
+from .models import RoomAssignment, RoommateRequest, HousingRequest, Staff, Student, LegalGuardian, AppUser
 from .serializers import RoomAssignmentSerializer, RoommateRequestSerializer, HousingRequestSerializer, StaffSerializer, StudentSerializer, LegalGuardianSerializer
 
-# View to get user 
 class Get_User(UserPermissions):
     def get(self, request):
-        return Response({"email": request.user.email})
+        user = get_object_or_404(AppUser, id=request.user.id)
+        if hasattr(user, 'student'):
+            # User is a student
+            return Response({"email": user.email, "fullName": user.fullName, "type": "student"})
+        else:
+            # User is not a student (staff or other)
+            return Response({"email": user.email, "type": "staff"})
 
 # View to sign up as staff member
 class Sign_Up_Staff(APIView):
@@ -62,9 +67,11 @@ class Log_In_Staff(APIView):
         password = request.data.get('password')
         user = authenticate(username=email, password=password)
         print(user)
-        if user:
+        if user and hasattr(user, 'staff'):
             token, created = Token.objects.get_or_create(user=user)
             return Response({"token": token.key, "user": user.email, "id": user.id})
+        elif user and hasattr(user, 'student'):
+            return Response("This user is not a staff. Log in as student", status=HTTP_401_UNAUTHORIZED)
         else:
             return Response("No user matching credentials", status=HTTP_404_NOT_FOUND)
         
@@ -76,9 +83,11 @@ class Log_In_Student(APIView):
         password = request.data.get('password')
         user = authenticate(username=email, password=password)
         print(user)
-        if user:
+        if user and hasattr(user, 'student'):
             token, created = Token.objects.get_or_create(user=user)
             return Response({"token": token.key, "user": user.email, "id": user.id})
+        elif user and hasattr(user, 'staff'):
+            return Response("This user is not a student. Log in as staff", status=HTTP_401_UNAUTHORIZED)
         else:
             return Response("No user matching credentials", status=HTTP_404_NOT_FOUND)
         
@@ -92,8 +101,10 @@ class Log_Out(UserPermissions):
 # View for legal guardian
 class Legal_Guardian(UserPermissions):
     # post method to create a legal guardian 
-    def post(self, request):
-        newLegalGuardian = Legal_Guardian.objects.create(**request.data)
+    def post(self, request, id):
+        student = get_object_or_404(Student, id=id)
+        newLegalGuardian = LegalGuardian.objects.create(**request.data)
+        newLegalGuardian.student = student
         newLegalGuardian.save()
 
         # serialize new legal guardian
@@ -102,13 +113,9 @@ class Legal_Guardian(UserPermissions):
         return Response(jsonNewLegalGuardian)
     
     # get a legal guardian
-    def get(self, request, studentID):
-        # get the student object with the student id
-        student = get_object_or_404(Student, id=studentID)
-
-        # get the legal guardian associated with the student
-        legal_guardian = student.legalGuardian
-
+    def get(self, request, id):
+        
+        legal_guardian = get_object_or_404(Legal_Guardian, id=id)
          # Check if a legal guardian is associated with the student
         if legal_guardian:
             # Serialize the legal guardian data
@@ -118,5 +125,153 @@ class Legal_Guardian(UserPermissions):
             # Return a response indicating that no legal guardian is associated with the student
             return Response({'error': 'No legal guardian found for the student.'}, status=HTTP_404_NOT_FOUND)
 
+    # delete legal guardian    
+    def delete(self, request, id):
+        legal_guardian = get_object_or_404(LegalGuardian, id=id)
+        legal_guardian.delete()
 
+        return Response(status=HTTP_204_NO_CONTENT)
+
+    # update legal guardian
+    def put(self, request, id):
+        legal_guardian = get_object_or_404(LegalGuardian, id=id)
+
+        json_legal_guardian = LegalGuardianSerializer(legal_guardian, data=request.data, partial=True)
+        if json_legal_guardian.is_valid():
+            json_legal_guardian.save()
+            return Response(json_legal_guardian.data, status=HTTP_204_NO_CONTENT)
+        else:
+            return Response(json_legal_guardian.errors, status=HTTP_400_BAD_REQUEST)
+
+# view to create a housing request        
+class Create_Housing_Request(UserPermissions):
+
+    def post(self, request):
+        new_housing = HousingRequest.objects.create(**request.data)
+        new_housing.save()
+
+        # serialize new legal guardian
+        json_housing = HousingRequestSerializer(new_housing).data
+
+        return Response(json_housing)
+
+# View to get, delete, or update the users housing request        
+class A_Housing_Request(UserPermissions):
+
+    def get(self, request, id):
+        housing_request = get_object_or_404(HousingRequest, user=id)
+        json_housing = HousingRequestSerializer(housing_request, many=True)
+
+        return Response(json_housing.data)
     
+    def delete(self, request, id):
+        housing_req = get_object_or_404(HousingRequest, id=id)
+        housing_req.delete()
+
+        return Response(status=HTTP_204_NO_CONTENT)
+
+    def put(self, request, id):
+        housing_req = get_object_or_404(HousingRequest, id=id)
+
+        json_housing_req = HousingRequestSerializer(housing_req, data=request.data, partial=True)
+        if json_housing_req.is_valid():
+            json_housing_req.save()
+            return Response(json_housing_req.data, status=HTTP_204_NO_CONTENT)
+        else:
+            return Response(json_housing_req.errors, status=HTTP_400_BAD_REQUEST)
+
+# View to get all housing request
+class All_Housing_Requests(UserPermissions):
+
+    def get(self):
+        housing_request = HousingRequest.objects.order_by('createdDate')
+        json_housing = HousingRequestSerializer(housing_request, many=True)
+        return Response(json_housing.data)
+
+# View to create a roommate request  
+class Create_Roomate_Request(UserPermissions):
+
+    # All roommate request are created through a housing request
+    def post(self, request, housingReqID):
+        roommate_req = RoommateRequest.objects.create(**request.data)
+        roommate_req.housingRequest = housingReqID
+        roommate_req.save()
+
+        # serialize new legal guardian
+        json_roommate_req = RoommateRequestSerializer(roommate_req).data
+
+        return Response(json_roommate_req)
+
+# View to get, delete, or update the roommate request    
+class A_Roommate_Request(UserPermissions):
+
+    def get(self, request, id):
+        user = get_object_or_404(AppUser, id=id)
+        housing_request = HousingRequest.objects.filter(user=user)
+        roommate_requests = RoommateRequest.objects.filter(housingRequest=housing_request)
+        json_roommate_req = RoommateRequestSerializer(roommate_requests, many=True)
+
+        return Response(json_roommate_req.data)
+    
+    def delete(self, request, id):
+        roommate_req = get_object_or_404(RoommateRequest, id=id)
+        roommate_req.delete()
+
+        return Response(status=HTTP_204_NO_CONTENT)
+
+    def put(self, request, id):
+        roommate_req = get_object_or_404(RoommateRequest, id=id)
+
+        json_roomate_req = RoommateRequestSerializer(roommate_req, data=request.data, partial=True)
+        if json_roomate_req.is_valid():
+            json_roomate_req.save()
+            return Response(json_roomate_req.data, status=HTTP_204_NO_CONTENT)
+        else:
+            return Response(json_roomate_req.errors, status=HTTP_400_BAD_REQUEST)
+
+
+# View to get all roommate request        
+class All_Roommate_Requests(UserPermissions):
+
+    def get(self):
+        roommate_requests = RoommateRequest.objects.order_by('createdDate')
+        json_roommate_request = RoomAssignmentSerializer(roommate_requests, many=True)
+        return Response(json_roommate_request.data)
+
+
+# View to create a room assignment
+class Create_Room_Assignment(UserPermissions):
+
+    def post(self, request):
+        new_room_assignment = RoomAssignment.objects.create(**request.data)
+        new_room_assignment.save()
+
+        # serialize new legal guardian
+        json_room_assignment = RoommateRequestSerializer(new_room_assignment).data
+
+        return Response(json_room_assignment)
+    
+# View to read or delete a room assignment
+class Admin_Room_Assignment(UserPermissions):
+    
+    def get(self, request, id):
+        room_assignment = get_object_or_404(RoomAssignment, appUser=id)
+        json_room_assignment = RoomAssignmentSerializer(room_assignment)
+
+        return Response(json_room_assignment.data)
+    
+    def delete(self, request, id):
+        room_assignment = get_object_or_404(RoomAssignment, appUser=id)
+        room_assignment.delete()
+
+        return Response(status=HTTP_204_NO_CONTENT)
+
+    def put(self, request, id):
+        room_assignment = get_object_or_404(RoomAssignment, appUser=id)
+
+        json_roomate_req = RoomAssignmentSerializer(room_assignment, data=request.data, partial=True)
+        if json_roomate_req.is_valid():
+            json_roomate_req.save()
+            return Response(json_roomate_req.data, status=HTTP_204_NO_CONTENT)
+        else:
+            return Response(json_roomate_req.errors, status=HTTP_400_BAD_REQUEST)

@@ -6,6 +6,7 @@ import './App.css'
 
 function App() {
   const [user, setUser] = useState(null);
+  const [name, setName] = useState(null);
   const [isStaff, setIsStaff] = useState(false)
   const [isStudent, setIsStudent] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -25,14 +26,16 @@ function App() {
       // Check if the response contains the user data (email field exists)
       if (response.data.email) {
         setUser(response.data);
+        setName(response.data.fullName);
           // Check if the "title" field exists in the user object
-        if (response.data.hasOwnProperty("title")) {
+        if (response.data.type == "staff") {
           // User is a staff member
           setIsStaff(true);
         } else {
           // User is a student
           setIsStudent(true);
         }
+        console.log(isStaff, isStudent);
         if (lastVisited.current) {
           navigate(lastVisited.current);
         } else {
@@ -41,7 +44,7 @@ function App() {
       }
      } else {
       // If no token is found, navigate to the login page
-      // navigate("/signupstudent");
+      navigate("/loginstudent");
     }
   };
 
@@ -60,7 +63,7 @@ function App() {
       localStorage.removeItem('token');
       setUser(null);
       setIsDropdownOpen(false);
-      navigate('/signupstudent');
+      navigate('/loginstudent');
     };
 
   return (
@@ -99,7 +102,8 @@ function App() {
                     isStaff,
                     setIsStaff,
                     isStudent,
-                    setIsStudent
+                    setIsStudent,
+                    name
                   }}
                 />
               </div>
