@@ -14,6 +14,7 @@ export default function SignupPage() {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [password, setPassword] = useState("");
     const [verifyPassword, setVerifyPassword] = useState("");
+    const {isStaff, setIsStaff} = useOutletContext();
 
     const signUp = async (e) => {
         e.preventDefault();
@@ -67,7 +68,7 @@ export default function SignupPage() {
 
     return (
         <>
-        <div className="relative h-3/4 w-3/4 mr-8 ml-8 border-8 flex flex-col justify-evenly items-center border-white bg-zinc-800 shadow-2xl rounded-md overflow-hidden">
+         <div className="relative h-[40rem] w-[50rem] mr-8 ml-8 border-8 flex flex-col justify-between items-center border-white bg-zinc-800 shadow-2xl rounded-md overflow-hidden">
             
                 <SignUpStaffComp 
                 setEmail={setEmail}
@@ -79,7 +80,7 @@ export default function SignupPage() {
                 signUp={signUp}
                 /> 
                 
-            <div className="ml-2 flex items-center absolute right-[40%] bottom-[2%] text-white h-[25%] w-[20%] overflow-hidden">
+            <div className="ml-2 flex items-end absolute right-[40%] bottom-[2%] text-white h-[25%] w-[20%] overflow-hidden">
                 <p className="w-40 text-xs">Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character @$!%*?&.</p>
             </div>
         </div>

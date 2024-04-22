@@ -67,7 +67,7 @@ function App() {
     };
 
   return (
-    <div className='min-h-screen bg-zinc-800'>
+    <div className='min-h-full '>
     {user ? (
       <div className=''>
         <header className='container min-w-screen max-w-none flex h-16 justify-between items-center pl-5 pr-5 border-b bg-sky-700 shadow-md'>
@@ -90,23 +90,25 @@ function App() {
                     </div>
                   </div>
                 )}
-            <div className='grid grid-cols-5 gap-3'>
-              <NavbarComp className='col-span-1' />
-              <div className='col-span-3 flex ml-8'>
-                <Outlet 
-                  context={{
-                    user,
-                    setUser,
-                    isDropdownOpen,
-                    setIsDropdownOpen,
-                    isStaff,
-                    setIsStaff,
-                    isStudent,
-                    setIsStudent,
-                    name
-                  }}
-                />
+            <div className='flex flex-column'>
+              <div className='w-[15rem]'>
+                <NavbarComp className='col-span-1' />
               </div>
+              <div className='w-screen'>
+                  <Outlet 
+                    context={{
+                      user,
+                      setUser,
+                      isDropdownOpen,
+                      setIsDropdownOpen,
+                      isStaff,
+                      setIsStaff,
+                      isStudent,
+                      setIsStudent,
+                      name
+                    }}
+                  />
+                </div>
             </div>
       </div>
     ) :
