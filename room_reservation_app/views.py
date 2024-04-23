@@ -24,10 +24,10 @@ class Get_User(UserPermissions):
         user = get_object_or_404(AppUser, id=request.user.id)
         if hasattr(user, 'student'):
             # User is a student
-            return Response({"email": user.email, "fullName": user.fullName, "type": "student"})
+            return Response({"email": user.email, "fullName": user.fullName, "type": "student", "id": user.id})
         else:
             # User is not a student (staff or other)
-            return Response({"email": user.email, "fullName": user.fullName, "type": "staff"})
+            return Response({"email": user.email, "fullName": user.fullName, "type": "staff", "id": user.id})
 
 # View to sign up as staff member
 class Sign_Up_Staff(APIView):
@@ -41,7 +41,7 @@ class Sign_Up_Staff(APIView):
             user = Staff.objects.create_user(**request.data)
             token = Token.objects.create(user=user)
             return Response(
-                {'user': user.email, "fullName": user.fullName, 'token': token.key}, status=HTTP_201_CREATED
+                {'user': user.email, "fullName": user.fullName, 'token': token.key, "id": user.id}, status=HTTP_201_CREATED
             )
     
 # View to sign up as student
@@ -56,7 +56,7 @@ class Sign_Up_Student(APIView):
             user = Student.objects.create_user(**request.data)
             token = Token.objects.create(user=user)
             return Response(
-                {'user': user.email, "fullName": user.fullName, 'token': token.key}, status=HTTP_201_CREATED
+                {'user': user.email, "fullName": user.fullName, 'token': token.key, "id": user.id}, status=HTTP_201_CREATED
             )
 
 # View to login staff member

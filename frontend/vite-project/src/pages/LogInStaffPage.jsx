@@ -11,7 +11,6 @@ export default function LogInStaffPage() {
     const [password, setPassword] = useState("");
     const {isStaff, setIsStaff} = useOutletContext();
     const {whoAmI} = useOutletContext();
-    const {name, setName} = useOutletContext();
 
     const signIn = async (e) => {
         e.preventDefault();

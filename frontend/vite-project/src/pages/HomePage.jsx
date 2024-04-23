@@ -7,6 +7,10 @@ export default function HomePage() {
 
 const {user, name} = useOutletContext();
 
+useEffect(() => {
+    console.log(user);
+}, []);
+
     return (
         <>
         <div
