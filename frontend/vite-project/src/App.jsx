@@ -27,15 +27,8 @@ function App() {
       if (response.data.email) {
         setUser(response.data);
         setName(response.data.fullName);
-          // Check if the "title" field exists in the user object
-        if (response.data.type == "staff") {
-          // User is a staff member
-          setIsStaff(true);
-        } else {
-          // User is a student
-          setIsStudent(true);
-        }
-        console.log(isStaff, isStudent);
+        setIsStudent(response.data.type == "student");
+        setIsStaff(response.data.type == "staff");
         if (lastVisited.current) {
           navigate(lastVisited.current);
         } else {
@@ -92,7 +85,10 @@ function App() {
                 )}
             <div className='flex flex-column'>
               <div className='w-[15rem]'>
-                <NavbarComp className='col-span-1' />
+                <NavbarComp className='col-span-1'
+                  isStudent = {isStudent}
+                  isStaff = {isStaff}
+                />
               </div>
               <div className='w-screen'>
                   <Outlet 
@@ -105,7 +101,8 @@ function App() {
                       setIsStaff,
                       isStudent,
                       setIsStudent,
-                      name
+                      name,
+                      whoAmI
                     }}
                   />
                 </div>
@@ -113,7 +110,7 @@ function App() {
       </div>
     ) :
      (
-      <div className='h-screen flex flex-col justify-center items-center bg-sky-900'>
+      <div className='h-screen flex flex-col justify-center items-center bg-sky-700'>
       
     <Outlet 
         context={{
@@ -122,7 +119,8 @@ function App() {
           isStaff,
           setIsStaff,
           isStudent,
-          setIsStudent
+          setIsStudent,
+          whoAmI
         }}
       />
       </div>

@@ -15,6 +15,7 @@ export default function SignupPage() {
     const [password, setPassword] = useState("");
     const [verifyPassword, setVerifyPassword] = useState("");
     const {isStaff, setIsStaff} = useOutletContext();
+    const {name, setName} = useOutletContext();
 
     const signUp = async (e) => {
         e.preventDefault();
@@ -44,14 +45,13 @@ export default function SignupPage() {
                 phoneNumber : phoneNumber
             });
             console.log(response)
-            let user = response.data.user;
+            let user = response.data;
             let token = response.data.token;
             // Store the token securely (e.g., in localStorage or HttpOnly cookies)
             localStorage.setItem("token", token);
             api.defaults.headers.common["Authorization"] = `Token ${token}`;
-            // set the user using with useContext to allow all other pages that need user information
-            setUser(user);
-            navigate("/");
+            // call whoAmI to set user details
+            whoAmI();
            
         } catch(error) {
             window.alert(error.response['data'])

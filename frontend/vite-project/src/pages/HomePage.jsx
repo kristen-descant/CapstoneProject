@@ -1,18 +1,11 @@
 import { api } from "../utilities.jsx";
 import { useNavigate, useOutletContext, Link } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { React, useEffect, useState } from "react";
 import collegeDormOne from '../media/collegeDormOne.jpg'
 
 export default function HomePage() {
 
-const {user, setUser} = useOutletContext();
-const {name, setName} = useOutletContext();
-
-useEffect(() => {
-    console.log(user)
-    console.log(user)
-    console.log(name)
-}, []);
+const {user, name} = useOutletContext();
 
     return (
         <>

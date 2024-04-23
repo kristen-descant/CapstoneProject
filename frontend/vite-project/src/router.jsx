@@ -5,6 +5,7 @@ import SignUpStudentPage from "./pages/SignUpStudentPage"
 import LogInStudentPage from "./pages/LogInStudentPage"
 import LogInStaffPage from "./pages/LogInStaffPage";
 import HomePage from "./pages/HomePage";
+import HousingRequest from "./pages/HousingRequest.jsx"
 
 const router = createBrowserRouter([
     {
@@ -31,10 +32,10 @@ const router = createBrowserRouter([
           path: "loginstaff",
           element: <LogInStaffPage/>
         },
-    //     {
-    //       path: "addproperty",
-    //       element: <AddPropertyPage/>
-    //     },
+        {
+          path: "housingrequest",
+          element: <HousingRequest/>
+        },
     //     {
     //       path: "lists",
     //       element: <ListsPropertiesPage/>

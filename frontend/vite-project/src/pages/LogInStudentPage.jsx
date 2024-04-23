@@ -9,8 +9,9 @@ export default function LogInStudentPage() {
     const {user, setUser} = useOutletContext();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const {isStudent, setIsStudent} = useOutletContext();
+    const {whoAmI} = useOutletContext();
     const {isStaff, setIsStaff} = useOutletContext();
+    const {name, setName} = useOutletContext();
 
     const signIn = async (e) => {
         e.preventDefault();
@@ -32,14 +33,13 @@ export default function LogInStudentPage() {
                 password: password,
             });
             console.log(response)
-            let user = response.data.user;
+            let user = response.data;
             let token = response.data.token;
             // Store the token securely (e.g., in localStorage or HttpOnly cookies)
             localStorage.setItem("token", token);
             api.defaults.headers.common["Authorization"] = `Token ${token}`;
-            // set the user using with useContext to allow all other pages that need user information
-            setUser(user);
-            navigate("/");
+            // call whoAmI to set user details
+            whoAmI();
            
         } catch(error) {
             window.alert(error.response['data'])

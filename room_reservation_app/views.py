@@ -27,7 +27,7 @@ class Get_User(UserPermissions):
             return Response({"email": user.email, "fullName": user.fullName, "type": "student"})
         else:
             # User is not a student (staff or other)
-            return Response({"email": user.email, "type": "staff"})
+            return Response({"email": user.email, "fullName": user.fullName, "type": "staff"})
 
 # View to sign up as staff member
 class Sign_Up_Staff(APIView):
@@ -41,7 +41,7 @@ class Sign_Up_Staff(APIView):
             user = Staff.objects.create_user(**request.data)
             token = Token.objects.create(user=user)
             return Response(
-                {'user': user.email, 'token': token.key}, status=HTTP_201_CREATED
+                {'user': user.email, "fullName": user.fullName, 'token': token.key}, status=HTTP_201_CREATED
             )
     
 # View to sign up as student
@@ -56,7 +56,7 @@ class Sign_Up_Student(APIView):
             user = Student.objects.create_user(**request.data)
             token = Token.objects.create(user=user)
             return Response(
-                {'user': user.email, 'token': token.key}, status=HTTP_201_CREATED
+                {'user': user.email, "fullName": user.fullName, 'token': token.key}, status=HTTP_201_CREATED
             )
 
 # View to login staff member
@@ -69,7 +69,7 @@ class Log_In_Staff(APIView):
         print(user)
         if user and hasattr(user, 'staff'):
             token, created = Token.objects.get_or_create(user=user)
-            return Response({"token": token.key, "user": user.email, "id": user.id})
+            return Response({"token": token.key, "fullName": user.fullName, "user": user.email, "id": user.id})
         elif user and hasattr(user, 'student'):
             return Response("This user is not a staff. Log in as student", status=HTTP_401_UNAUTHORIZED)
         else:
@@ -85,7 +85,7 @@ class Log_In_Student(APIView):
         print(user)
         if user and hasattr(user, 'student'):
             token, created = Token.objects.get_or_create(user=user)
-            return Response({"token": token.key, "user": user.email, "id": user.id})
+            return Response({"token": token.key, "fullName": user.fullName, "user": user.email, "id": user.id})
         elif user and hasattr(user, 'staff'):
             return Response("This user is not a student. Log in as staff", status=HTTP_401_UNAUTHORIZED)
         else:
