@@ -32,7 +32,7 @@ function App() {
         if (lastVisited.current) {
           navigate(lastVisited.current);
         } else {
-          navigate("/");
+          navigate("/housingrequest");
         }
       }
      } else {

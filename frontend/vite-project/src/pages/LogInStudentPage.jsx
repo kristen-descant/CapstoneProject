@@ -49,8 +49,12 @@ export default function LogInStudentPage() {
 
     useEffect(() => {
         if (user) {
-            navigate('/')
+            navigate('/housingrequest')
         }
+    }, [])
+
+    useEffect(() => {
+        console.log("this is the login page")
     }, [])
 
     return (

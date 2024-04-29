@@ -58,7 +58,7 @@ export default function SignupPage() {
 
     useEffect(() => {
         if (user) {
-            navigate('/')
+            navigate('/housingrequest')
         }
     }, [])
 

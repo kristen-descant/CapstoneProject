@@ -50,8 +50,7 @@ export default function LogInStaffPage() {
 
     useEffect(() => {
         if (user) {
-            navigate('/')
-            console.log(isStaff)
+            navigate('/housingrequest')
         }
     }, [])
 

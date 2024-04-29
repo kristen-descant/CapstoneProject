@@ -6,6 +6,7 @@ import LogInStudentPage from "./pages/LogInStudentPage"
 import LogInStaffPage from "./pages/LogInStaffPage";
 import HomePage from "./pages/HomePage";
 import HousingRequest from "./pages/HousingRequest.jsx"
+import IndexPage from "./pages/IndexPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -14,7 +15,7 @@ const router = createBrowserRouter([
       children: [
         {
           index: true,
-          element: <HomePage />,
+          element: <IndexPage/> ,
         },
         {
           path: "signupstaff",

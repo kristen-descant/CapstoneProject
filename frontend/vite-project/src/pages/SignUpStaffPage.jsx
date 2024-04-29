@@ -61,8 +61,7 @@ export default function SignupPage() {
 
     useEffect(() => {
         if (user) {
-            console.log(isStaff)
-            navigate('/')
+            navigate('housingrequest')
         }
     }, [])
 
