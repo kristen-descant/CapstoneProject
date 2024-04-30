@@ -203,16 +203,23 @@ class All_Housing_Requests(UserPermissions):
 # View to create a roommate request  
 class Create_Roomate_Request(UserPermissions):
 
-    # All roommate request are created through a housing request
-    def post(self, request, housingReqID):
-        roommate_req = RoommateRequest.objects.create(**request.data)
-        roommate_req.housingRequest = housingReqID
-        roommate_req.save()
+    def post(self, request):
+        print(request.user)
+        user = get_object_or_404(AppUser, id=request.user.id)
+        print(user)
+        new_roommate = RoommateRequest.objects.create(
+            createdDate=request.data.get('createdDate'),
+            roommateFullName = request.data.get('roommateFullName'),
+            roommateEmail = request.data.get('roommateEmail'),
+            roommateGrade = request.data.get('roommateGrade'),
+            user=user  # Assign the user to the housing request
+        )
+        new_roommate.save()
 
         # serialize new legal guardian
-        json_roommate_req = RoommateRequestSerializer(roommate_req).data
+        json_rommate = RoommateRequestSerializer(new_roommate).data
 
-        return Response(json_roommate_req)
+        return Response(json_rommate)
 
 # View to get, delete, or update the roommate request    
 class A_Roommate_Request(UserPermissions):
@@ -269,7 +276,7 @@ class Admin_Room_Assignment(UserPermissions):
     def get(self, request, id):
         room_assignment = get_object_or_404(RoomAssignment, appUser=id)
         json_room_assignment = RoomAssignmentSerializer(room_assignment)
-
+        
         return Response(json_room_assignment.data)
     
     def delete(self, request, id):

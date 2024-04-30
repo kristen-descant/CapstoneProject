@@ -39,11 +39,11 @@ export default function HousingRequest() {
         className="min-h-screen bg-cover bg-center flex justify-center items-center"
         style={{ backgroundImage: `url(${apartments})` }}>
 
-            <div className="h-[45rem] w-[35rem] bg-white border border-r">
+            <div className="h-[25rem] w-[35rem] bg-white border border-r">
                 <div className="m-4 text-lg">Create a housing request</div>
                 <div className="m-4">You can request housing specifications or submit the blank form to request housing with no specific attributes.</div>
-                <form  onSubmit={createHousingRequest} className="w-3/4 ml-20 pl-10 mt-10 flex flex-col" style={{ marginLeft: 0 }}>
-                    <div className="flex flex-row justify-start mb-5">
+                <form  onSubmit={createHousingRequest} className="mt-10 flex flex-col items-center" style={{ marginLeft: 0 }}>
+                    <div>
                         <div className="flex flex-row justify-start overflow-hidden mb-1 mr-[3rem]">
                             <label htmlFor="buildingNumber">Building number:</label>
                             <select
@@ -60,7 +60,7 @@ export default function HousingRequest() {
                         <div className="flex flex-row justify-start overflow-hidden mb-1">
                             <label htmlFor="unitSize">Unit Size:</label>
                             <select
-                                className="bg-blue-100 ml-3"
+                                className="bg-blue-100 ml-[4.8rem]"
                                 onChange={(e) => setUnitSize(e.target.value)}
                             >
                                 <option value=""></option>
@@ -70,12 +70,12 @@ export default function HousingRequest() {
                                 <option value="4">4</option>
                             </select>
                         </div>
-                    </div>
-                    <div className="flex flex-row justify-start mb-5">
-                        <div className="flex flex-row justify-start overflow-hidden mb-1 mr-[8.7rem]">
+                   
+                 
+                        <div className="flex flex-row justify-start overflow-hidden mb-1">
                             <label htmlFor="floor">Floor:</label>
                             <select
-                                className="bg-blue-100 ml-3"
+                                className="bg-blue-100 ml-[6.4rem]"
                                 onChange={(e) => setFloor(e.target.value)}
                             >
                                 <option value=""></option>
@@ -87,26 +87,26 @@ export default function HousingRequest() {
                         <div className="flex flex-row justify-start overflow-hidden mb-1">
                             <label htmlFor="accessible">Accessible:</label>
                             <select
-                                className="bg-blue-100 ml-3"
+                                className="bg-blue-100 ml-[3.2rem]"
                                 onChange={(e) => setAccessible(e.target.value === 'Yes')}
                             >
                                 <option value="No">No</option>
                                 <option value="Yes">Yes</option>
                             </select>
                         </div>
-                    </div>
-                    <div className="flex justify-center mt-3">
-                        <button className="rounded bg-sky-700 hover:bg-sky-900 text-white pl-1 pr-1" type="submit">Submit</button>
+                        
+                        <div className="ml-[7.3rem] mt-3">
+                            <button className="rounded bg-sky-700 hover:bg-sky-900 text-white pl-1 pr-1" type="submit">Submit</button>
+                        </div>
                     </div>
                 </form>
+                
                 <div className="m-4 mt-8 flex flex-row">
                     <div>Create a roommate request?</div>
-                    <button className="rounded ml-3 bg-sky-700 hover:bg-sky-900 text-white pl-1 pr-1" type="button">Roommate Request</button>
+                    <a className="rounded ml-3 bg-sky-700 hover:bg-sky-900 text-white pl-1 pr-1" href="/roommaterequest" >Roommate Request</a>
                 </div>
             </div>
         </div>
         </>
     )
 }
-
-// roommate request button needs onClick function and to set housingRequest ID

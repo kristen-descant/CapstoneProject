@@ -7,6 +7,7 @@ import LogInStaffPage from "./pages/LogInStaffPage";
 import HomePage from "./pages/HomePage";
 import HousingRequest from "./pages/HousingRequest.jsx"
 import IndexPage from "./pages/IndexPage.jsx";
+import RoommateRequestPage from "./pages/RoommateRequestPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -41,10 +42,10 @@ const router = createBrowserRouter([
           path: "home",
           element: <HomePage/>
         },
-    //     {
-    //       path: "lists/:listId",
-    //       element: <AListPropertiesPage/>
-    //     },
+        {
+          path: "roommaterequest",
+          element: <RoommateRequestPage/>
+        },
     //     {
     //       path: "purchaseworksheet/:propertyId",
     //       element: <PurchaseWorksheetPage/>
