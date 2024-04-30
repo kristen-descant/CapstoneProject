@@ -49,7 +49,7 @@ export default function LogInStudentPage() {
 
     useEffect(() => {
         if (user) {
-            navigate('/housingrequest')
+            navigate('/home')
         }
     }, [])
 
@@ -59,6 +59,10 @@ export default function LogInStudentPage() {
 
     return (
         <>
+        <Link to="/" className="w-[15%] bg-blue-500 hover:bg-blue-700 text-white text-center font-bold py-2 px-4 mb-5 rounded">
+            Done with Demo
+        </Link>
+        
        <div className="relative h-[30rem] w-[50rem] mr-8 ml-8 border-8 flex flex-col justify-evenly items-center border-white bg-zinc-800 shadow-2xl rounded-md overflow-hidden">
             <div className="bg-white w-3/4 h-1/2 p-5 rounded md:h-1/2  flex flex-col justify-center overflow-hidden">
                 <div className="w-full h-full flex flex-col items-start justify-center">

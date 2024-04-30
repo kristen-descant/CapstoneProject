@@ -47,6 +47,7 @@ class RoommateRequest(models.Model):
     roommateFullName = models.CharField(max_length=255)
     roommateEmail = models.EmailField()
     roommateGrade = models.CharField(max_length=100)
+    user = models.ForeignKey(AppUser, related_name="roommateRequests", on_delete=models.CASCADE, default=0)
     housingRequest = models.OneToOneField(HousingRequest, related_name = 'roommateRequest', on_delete=models.CASCADE, null=True, blank=True)
 
 

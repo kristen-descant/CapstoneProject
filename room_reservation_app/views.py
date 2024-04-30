@@ -147,7 +147,17 @@ class Legal_Guardian(UserPermissions):
 class Create_Housing_Request(UserPermissions):
 
     def post(self, request):
-        new_housing = HousingRequest.objects.create(**request.data)
+        print(request.user)
+        user = get_object_or_404(AppUser, id=request.user.id)
+        print(user)
+        new_housing = HousingRequest.objects.create(
+            createdDate=request.data.get('createdDate'),
+            buildingNumber=request.data.get('buildingNumber'),
+            unitSize=request.data.get('unitSize'),
+            floor=request.data.get('floor'),
+            accessible=request.data.get('accessible'),
+            user=user  # Assign the user to the housing request
+        )
         new_housing.save()
 
         # serialize new legal guardian
@@ -159,10 +169,12 @@ class Create_Housing_Request(UserPermissions):
 class A_Housing_Request(UserPermissions):
 
     def get(self, request, id):
-        housing_request = get_object_or_404(HousingRequest, user=id)
-        json_housing = HousingRequestSerializer(housing_request, many=True)
-
-        return Response(json_housing.data)
+            housing_requests = HousingRequest.objects.filter(user=id)
+            if housing_requests.exists():
+                json_housing = HousingRequestSerializer(housing_requests, many=True)
+                return Response(json_housing.data)
+            else:
+                return Response({"message": "No housing requests found for this user."}, status=404)
     
     def delete(self, request, id):
         housing_req = get_object_or_404(HousingRequest, id=id)
@@ -206,12 +218,12 @@ class Create_Roomate_Request(UserPermissions):
 class A_Roommate_Request(UserPermissions):
 
     def get(self, request, id):
-        user = get_object_or_404(AppUser, id=id)
-        housing_request = HousingRequest.objects.filter(user=user)
-        roommate_requests = RoommateRequest.objects.filter(housingRequest=housing_request)
-        json_roommate_req = RoommateRequestSerializer(roommate_requests, many=True)
-
-        return Response(json_roommate_req.data)
+        roommate_requests = RoommateRequest.objects.filter(user=id)
+        if roommate_requests.exists():
+            json_roommates = RoommateRequestSerializer(roommate_requests, many=True)
+            return Response(json_roommates.data)
+        else:
+            return Response({"message": "No roommate requests found for this user."}, status=404)
     
     def delete(self, request, id):
         roommate_req = get_object_or_404(RoommateRequest, id=id)

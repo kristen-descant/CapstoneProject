@@ -1,7 +1,7 @@
 
 import { api } from "../utilities.jsx";
 import { emailRegex, passwordRegex } from "../utilities.jsx";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext, Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import SignUpStaffComp from "../components/SignUpStaffComp.jsx";
 
@@ -61,12 +61,16 @@ export default function SignupPage() {
 
     useEffect(() => {
         if (user) {
-            navigate('housingrequest')
+            navigate('/home')
         }
     }, [])
 
     return (
         <>
+        <Link to="/" className="w-[15%] bg-blue-500 hover:bg-blue-700 text-white text-center font-bold py-2 px-4 mb-5 rounded">
+            Done with Demo
+        </Link>
+
          <div className="relative h-[40rem] w-[50rem] mr-8 ml-8 border-8 flex flex-col justify-between items-center border-white bg-zinc-800 shadow-2xl rounded-md overflow-hidden">
             
                 <SignUpStaffComp 

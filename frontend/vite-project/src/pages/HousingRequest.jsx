@@ -9,16 +9,22 @@ export default function HousingRequest() {
     const [unitSize, setUnitSize] = useState(null);
     const [floor, setFloor] = useState(null);
     const [accessible, setAccessible] = useState(null);
+    const {user} = useOutletContext();
 
     const createHousingRequest = async (e) => {
         e.preventDefault();
 
+        // Generate the current date
+        const currentDate = new Date();
+        const formattedDate = currentDate.toISOString().split('T')[0];
+
         try {
-            let response = await api.post(`housingreq/${user.id}`, {
+            let response = await api.post(`createhousingreq/`, {
                 buildingNumber: buildingNumber,
                 unitSize: unitSize,
                 floor: floor,
                 accessible: accessible,
+                createdDate: formattedDate,
             });
             console.log(response);
         } catch (error) {
@@ -33,10 +39,10 @@ export default function HousingRequest() {
         className="min-h-screen bg-cover bg-center flex justify-center items-center"
         style={{ backgroundImage: `url(${apartments})` }}>
 
-            <div className="h-[25rem] w-[35rem] bg-white border border-r">
+            <div className="h-[45rem] w-[35rem] bg-white border border-r">
                 <div className="m-4 text-lg">Create a housing request</div>
-                <div className="m-4">You can request housing specifications or submit the blank form to request housing with no request.</div>
-                <form  onSubmit={createHousingRequest} className="w-3/4 ml-20 pl-10 flex flex-col" style={{ marginLeft: 0 }}>
+                <div className="m-4">You can request housing specifications or submit the blank form to request housing with no specific attributes.</div>
+                <form  onSubmit={createHousingRequest} className="w-3/4 ml-20 pl-10 mt-10 flex flex-col" style={{ marginLeft: 0 }}>
                     <div className="flex flex-row justify-start mb-5">
                         <div className="flex flex-row justify-start overflow-hidden mb-1 mr-[3rem]">
                             <label htmlFor="buildingNumber">Building number:</label>

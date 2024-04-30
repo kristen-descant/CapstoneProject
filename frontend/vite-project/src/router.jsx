@@ -37,10 +37,10 @@ const router = createBrowserRouter([
           path: "housingrequest",
           element: <HousingRequest/>
         },
-    //     {
-    //       path: "lists",
-    //       element: <ListsPropertiesPage/>
-    //     },
+        {
+          path: "home",
+          element: <HomePage/>
+        },
     //     {
     //       path: "lists/:listId",
     //       element: <AListPropertiesPage/>
