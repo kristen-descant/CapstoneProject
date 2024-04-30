@@ -195,7 +195,7 @@ class A_Housing_Request(UserPermissions):
 # View to get all housing request
 class All_Housing_Requests(UserPermissions):
 
-    def get(self):
+    def get(self, request):
         housing_request = HousingRequest.objects.order_by('createdDate')
         json_housing = HousingRequestSerializer(housing_request, many=True)
         return Response(json_housing.data)
@@ -252,9 +252,9 @@ class A_Roommate_Request(UserPermissions):
 # View to get all roommate request        
 class All_Roommate_Requests(UserPermissions):
 
-    def get(self):
+    def get(self, request):
         roommate_requests = RoommateRequest.objects.order_by('createdDate')
-        json_roommate_request = RoomAssignmentSerializer(roommate_requests, many=True)
+        json_roommate_request = RoommateRequestSerializer(roommate_requests, many=True)
         return Response(json_roommate_request.data)
 
 

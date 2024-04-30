@@ -24,7 +24,7 @@ export default function NavbarComp(
             
           </div>
           <ul className="flex flex-col">
-            <li className="w-[90%] overflow-hidden shadow mb-2 bg-white rounded-md text-center hover:bg-sky-900 hover:text-white"><Link className="" to="">Manage Requests</Link></li>
+            <li className="w-[90%] overflow-hidden shadow mb-2 bg-white rounded-md text-center hover:bg-sky-900 hover:text-white"><Link className="" to="managerequests">Manage Requests</Link></li>
             <li className="w-[90%] overflow-hidden bg-white rounded text-center shadow-md mb-2 hover:bg-sky-900 hover:text-white"><Link to="">Student Search</Link></li>
             <li className="w-[90%] overflow-hidden bg-white rounded text-center shadow-md mb-2 hover:bg-sky-900 hover:text-white"><Link to="">Room Assignments</Link></li>
           </ul>

@@ -22,11 +22,11 @@ export default function SignUpStudentComp({
                         <input className="bg-blue-100 w-[40%] ml-[4.5rem]" type="text" onChange={(e) => setEmail(e.target.value)}/>
                     </div>
                     <div className="flex flex-row justify-start overflow-hidden mb-1">
-                        <label htmlFor="title">full name:</label>
+                        <label htmlFor="name">full name:</label>
                         <input className="bg-blue-100 w-[40%] ml-[2.8rem]" type="text" onChange={(e) => setFullName(e.target.value)}/>
                     </div>
                     <div className="flex flex-row justify-start overflow-hidden mb-1">
-                        <label htmlFor="title">phone number:</label>
+                        <label htmlFor="number">phone number:</label>
                         <input className="bg-blue-100 w-[40%] ml-[.3rem]" type="text" onChange={(e) => setPhoneNumber(e.target.value)}/>
                     </div>
                     <div className="flex flex-row justify-start overflow-hidden mb-1">

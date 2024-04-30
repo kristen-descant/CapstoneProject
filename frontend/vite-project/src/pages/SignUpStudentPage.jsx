@@ -7,7 +7,7 @@ import SignUpStudentComp from "../components/SignUpStudentComp.jsx";
 
 export default function SignupPage() {
     const navigate = useNavigate();
-    const {user, setUser} = useOutletContext();
+    const {user, whoAmI} = useOutletContext();
     const [email, setEmail] = useState("");
     const [fullName, setFullName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -51,13 +51,14 @@ export default function SignupPage() {
             whoAmI();
            
         } catch(error) {
-            window.alert(error.response['data'])
-            console.error(error)
+            window.alert(error.response ? error.response.data : "An error occurred");
+        console.error(error);
         };
     };
 
     useEffect(() => {
         if (user) {
+            console.log(user)
             navigate('/home')
         }
     }, [])

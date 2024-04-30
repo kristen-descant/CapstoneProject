@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import HousingRequest from "./pages/HousingRequest.jsx"
 import IndexPage from "./pages/IndexPage.jsx";
 import RoommateRequestPage from "./pages/RoommateRequestPage.jsx";
+import ManageRequestsPage from "./pages/ManageRequestsPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -46,10 +47,10 @@ const router = createBrowserRouter([
           path: "roommaterequest",
           element: <RoommateRequestPage/>
         },
-    //     {
-    //       path: "purchaseworksheet/:propertyId",
-    //       element: <PurchaseWorksheetPage/>
-    //     },
+        {
+          path: "managerequests",
+          element: <ManageRequestsPage/>
+        },
     //     {
     //       path: "calculator",
     //       element: <CaclculatorPage/>

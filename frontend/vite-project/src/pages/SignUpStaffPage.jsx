@@ -7,7 +7,7 @@ import SignUpStaffComp from "../components/SignUpStaffComp.jsx";
 
 export default function SignupPage() {
     const navigate = useNavigate();
-    const {user, setUser} = useOutletContext();
+    const {user, whoAmI} = useOutletContext();
     const [email, setEmail] = useState("");
     const [title, setTitle] = useState("");
     const [fullName, setFullName] = useState("");

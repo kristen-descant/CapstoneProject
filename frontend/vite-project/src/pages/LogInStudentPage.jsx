@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 
 export default function LogInStudentPage() {
     const navigate = useNavigate();
-    const {user, setUser} = useOutletContext();
+    const {user} = useOutletContext();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const {whoAmI} = useOutletContext();
