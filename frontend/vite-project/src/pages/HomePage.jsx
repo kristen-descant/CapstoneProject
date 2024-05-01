@@ -50,6 +50,7 @@ useEffect(() => {
     getHousingRequests();
     getRoommateRequests();
     getRoommAssignment();
+    console.log(roomAssignment)
 }, []);
 
     return (
@@ -62,23 +63,27 @@ useEffect(() => {
             <div className="min-h-screen flex justify-center items-center z-[10]">
                 <div className="h-[40rem] w-[35rem] bg-white border border-r grid grid-rows-3 p-2 z-[2]">
                     <div>
-                        <p>Room Assignment</p>
+                        <p className="font-bold">Room Assignment</p>
                         {roomAssignment ? (
-                            <div className="flex flex-col">
-                                <div className="flex flex-row">
+                            <div className="flex flex-col justify-between h-[65%] mt-3">
+                                <div className="flex flex-row justify-between">
                                     <p>Created: {roomAssignment.createdDate}</p>
                                     <p>Start Date: {roomAssignment.startDate}</p>
                                     <p>End Date: {roomAssignment.endDate}</p>
                                 </div>
-                                <div>
-                                    <p>Building: {roomAssignment.buildingNumber}</p>
+                                <div className="flex flex-row justify-between">
+                                    <p>Cost per Semester: {roomAssignment.costPerSemester}</p>
+                                    <p>Balance Due: {roomAssignment.balanceDue}</p>
+                                </div>
+                                <div className="flex flex-row">
+                                    <p className="mr-5">Building: {roomAssignment.buildingNumber}</p>
                                     <p>Room: {roomAssignment.roomNumber}</p>
                                 </div>
                             </div>
                         ) : <p>No current room assignment.</p>}
                     </div>
-                    <div>
-                        <p>Housing Requests</p>
+                    <div className="border-t">
+                        <p className="font-bold">Housing Requests</p>
                         <div className="overflow-auto max-h-40">
                             {housingRequests.map(request => (
                                 <div key={request.id} className="border border-gray-300 p-2 m-2 flex flex-col">
@@ -95,8 +100,8 @@ useEffect(() => {
                             ))}
                         </div>
                     </div>
-                    <div>
-                        <p>Roommate Requests</p>
+                    <div className="border-t">
+                        <p className="font-bold">Roommate Requests</p>
                         <div className="overflow-auto max-h-40">
                             {roommateRequests.map(request => (
                                 <div key={request.id} className="border border-gray-300 p-2 m-2 flex flex-col">

@@ -196,7 +196,7 @@ class A_Housing_Request(UserPermissions):
 class All_Housing_Requests(UserPermissions):
 
     def get(self, request):
-        housing_request = HousingRequest.objects.order_by('createdDate')
+        housing_request = HousingRequest.objects.order_by('-createdDate')
         json_housing = HousingRequestSerializer(housing_request, many=True)
         return Response(json_housing.data)
 
@@ -253,7 +253,7 @@ class A_Roommate_Request(UserPermissions):
 class All_Roommate_Requests(UserPermissions):
 
     def get(self, request):
-        roommate_requests = RoommateRequest.objects.order_by('createdDate')
+        roommate_requests = RoommateRequest.objects.order_by('-createdDate')
         json_roommate_request = RoommateRequestSerializer(roommate_requests, many=True)
         return Response(json_roommate_request.data)
 
@@ -262,11 +262,32 @@ class All_Roommate_Requests(UserPermissions):
 class Create_Room_Assignment(UserPermissions):
 
     def post(self, request):
-        new_room_assignment = RoomAssignment.objects.create(**request.data)
+        user_id = request.data.get('appUser')
+        print(user_id)
+        user = get_object_or_404(AppUser, id=user_id)
+        print(user)
+        room_assignment_data = {
+            'createdDate': request.data.get('createdDate'),
+            'startDate': request.data.get('startDate'),
+            'endDate': request.data.get('endDate'),
+            'buildingNumber': request.data.get('buildingNumber'),
+            'roomNumber': request.data.get('roomNumber'),
+            'costPerSemester': request.data.get('costPerSemester'),
+            'balanceDue': request.data.get('balanceDue')
+        }
+
+        # Create RoomAssignment instance
+        new_room_assignment = RoomAssignment.objects.create(
+            **room_assignment_data,
+        )
+
+        user.roomAssignment = new_room_assignment
+
         new_room_assignment.save()
+        user.save()
 
         # serialize new legal guardian
-        json_room_assignment = RoommateRequestSerializer(new_room_assignment).data
+        json_room_assignment = RoomAssignmentSerializer(new_room_assignment).data
 
         return Response(json_room_assignment)
     
@@ -274,7 +295,10 @@ class Create_Room_Assignment(UserPermissions):
 class Admin_Room_Assignment(UserPermissions):
     
     def get(self, request, id):
-        room_assignment = get_object_or_404(RoomAssignment, appUser=id)
+        user = get_object_or_404(AppUser, id=id)
+        print(user)
+        print(user.roomAssignment)
+        room_assignment = user.roomAssignment
         json_room_assignment = RoomAssignmentSerializer(room_assignment)
         
         return Response(json_room_assignment.data)

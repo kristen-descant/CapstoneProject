@@ -5,7 +5,7 @@ class RoomAssignmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RoomAssignment
-        fields = ["id", "createdDate", "startDate", "endDate", "buildingNumber", "roomNumber", "costPerSemester", "balanceDue"]
+        fields = ["id", "createdDate", "startDate", "endDate", "buildingNumber", "roomNumber", "costPerSemester", "balanceDue", "appUser"]
 
 class StaffSerializer(serializers.ModelSerializer):
 
