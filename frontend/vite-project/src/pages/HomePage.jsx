@@ -51,6 +51,7 @@ useEffect(() => {
     getRoommateRequests();
     getRoommAssignment();
     console.log(roomAssignment)
+    console.log(user);
 }, []);
 
     return (
