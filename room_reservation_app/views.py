@@ -17,7 +17,7 @@ from django.contrib.auth.hashers import check_password
 from django.core.exceptions import ValidationError
 from .userPermissions import UserPermissions
 from .models import RoomAssignment, RoommateRequest, HousingRequest, Staff, Student, LegalGuardian, AppUser
-from .serializers import RoomAssignmentSerializer, RoommateRequestSerializer, HousingRequestSerializer, StaffSerializer, StudentSerializer, LegalGuardianSerializer
+from .serializers import AppUserSerializer, RoomAssignmentSerializer, RoommateRequestSerializer, HousingRequestSerializer, StaffSerializer, StudentSerializer, LegalGuardianSerializer
 
 class Get_User(UserPermissions):
     def get(self, request):
@@ -28,7 +28,26 @@ class Get_User(UserPermissions):
         else:
             # User is not a student (staff or other)
             return Response({"email": user.email, "fullName": user.fullName, "type": "staff", "id": user.id})
+        
+# View to get all users
+class All_Users(APIView):
+    def get(self, request):
+        users = AppUser.objects.all()
+        user_data = []
 
+        for user in users:
+            if hasattr(user, 'staff'):
+                serializer = StaffSerializer(user.staff)
+            elif hasattr(user, 'student'):
+                serializer = StudentSerializer(user.student)
+            else:
+                serializer = AppUserSerializer(user)
+
+            user_data.append(serializer.data)
+
+        return Response(user_data)
+
+    
 # View to sign up as staff member
 class Sign_Up_Staff(APIView):
     def post(self, request):

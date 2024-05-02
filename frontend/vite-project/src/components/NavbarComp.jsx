@@ -15,8 +15,6 @@ export default function NavbarComp(
         <li className="w-[90%] overflow-hidden shadow mb-2 bg-white rounded-md text-center hover:bg-sky-900 hover:text-white"><Link to="home">Home</Link></li>
         <li className="w-[90%] overflow-hidden shadow mb-2 bg-white rounded-md text-center hover:bg-sky-900 hover:text-white"><Link to="housingrequest">Housing Request</Link></li>
         <li className="w-[90%] overflow-hidden bg-white rounded text-center shadow-md mb-2 hover:bg-sky-900 hover:text-white"><Link to="roommaterequest">Roommate Request</Link></li>
-        <li className="w-[90%] overflow-hidden bg-white rounded text-center shadow-md mb-2 hover:bg-sky-900 hover:text-white"><Link to="">My Room Assignment</Link></li>
-        <li className="w-[90%] overflow-hidden shadow-md mb-2 bg-white rounded text-center hover:bg-sky-900 hover:text-white"><Link to="">Balance</Link></li>
       </ul>
       {isStaff && 
         <div>
@@ -25,7 +23,7 @@ export default function NavbarComp(
           </div>
           <ul className="flex flex-col">
             <li className="w-[90%] overflow-hidden shadow mb-2 bg-white rounded-md text-center hover:bg-sky-900 hover:text-white"><Link className="" to="managerequests">Manage Requests</Link></li>
-            <li className="w-[90%] overflow-hidden bg-white rounded text-center shadow-md mb-2 hover:bg-sky-900 hover:text-white"><Link to="">Student Search</Link></li>
+            <li className="w-[90%] overflow-hidden bg-white rounded text-center shadow-md mb-2 hover:bg-sky-900 hover:text-white"><Link to="searchtenants">Tenant Search</Link></li>
             <li className="w-[90%] overflow-hidden bg-white rounded text-center shadow-md mb-2 hover:bg-sky-900 hover:text-white"><Link to="">Room Assignments</Link></li>
           </ul>
         </div>

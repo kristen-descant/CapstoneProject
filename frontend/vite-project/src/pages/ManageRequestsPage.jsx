@@ -77,20 +77,24 @@ export default function ManageRequestsPage() {
     return (
         <>
             <div className="flex flex-row">
-                <input
-                className="m-5 w-[20rem] border border-black "
-                    type="text"
-                    placeholder="Search by Student ID or Email"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                            handleSearch(searchQuery);
-                        }
-                    }}
-                />
-                <p className="m-5">Choose a housing request or roommate request to create a room assignment.</p>
-            </div>
+                <div className="w-1/3">
+                    <input
+                    className="m-5 w-[20rem] border border-black"
+                        type="text"
+                        placeholder="Search by ID or Email"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                handleSearch(searchQuery);
+                            }
+                        }}
+                    />
+                    <button className="bg-blue-500 text-white p-1 py-2 rounded-md" onClick={() => handleSearch(searchQuery)}>Search</button>
+                </div>
+                <p className="m-5 w-1/3 text-center">Click on a request to begin creating a room assignment.</p>
+                <div className="w-1/3"></div>
+            `   </div>
             <div className="h-full w-full flex flex-row">
     
                 <div className="min-h-full border-black border-r w-[50%] m-5 mr-0">
@@ -112,7 +116,6 @@ export default function ManageRequestsPage() {
                                     <p className="ml-3">Accessible: {request.accessible}</p>
                                 </div>
                                 
-                                {/* Add more details as needed */}
                             </li>
                         ))}
                     </ul>

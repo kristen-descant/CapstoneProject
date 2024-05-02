@@ -9,6 +9,7 @@ import HousingRequest from "./pages/HousingRequest.jsx"
 import IndexPage from "./pages/IndexPage.jsx";
 import RoommateRequestPage from "./pages/RoommateRequestPage.jsx";
 import ManageRequestsPage from "./pages/ManageRequestsPage.jsx";
+import SearchTenantsPage from "./pages/SearchTenantsPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -51,10 +52,10 @@ const router = createBrowserRouter([
           path: "managerequests",
           element: <ManageRequestsPage/>
         },
-    //     {
-    //       path: "calculator",
-    //       element: <CaclculatorPage/>
-    //     },
+        {
+          path: "searchtenants",
+          element: <SearchTenantsPage/>
+        },
     //     {
     //       path: "settings",
     //       element: <UserSettingsPage/>
