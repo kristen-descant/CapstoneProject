@@ -10,6 +10,7 @@ export default function RoommateRequestPage() {
     const [roommateEmail, setRoommateEmail] = useState(null);
     const [roommateGrade, setRoommateGrade] = useState(null);
     const [currentGrade, setCurrentGrade] = useState(null);
+    const [submissionMessage, setSubmissionMessage] = useState(null);
 
     const createRoommateRequest = async (e) => {
         e.preventDefault();
@@ -38,6 +39,7 @@ export default function RoommateRequestPage() {
                 roommateGrade: roommateGrade,
             });
             console.log(response);
+            setSubmissionMessage("Roommate request submitted successfully.");
         } catch (error) {
             console.log(error);
         };
@@ -99,6 +101,9 @@ export default function RoommateRequestPage() {
                         <button className="rounded bg-sky-700 hover:bg-sky-900 text-white pl-1 pr-1" type="submit">Submit</button>
                     </div>
                 </form>
+                <div className="m-3">
+                    {submissionMessage && <p>{submissionMessage}</p>}
+                </div>
                 <div className="m-4 mt-8 flex flex-row">
                     <div>Create a housing request?</div>
                     <a className="rounded ml-3 bg-sky-700 hover:bg-sky-900 text-white pl-1 pr-1" href="/housingrequest" >Housing Request</a>

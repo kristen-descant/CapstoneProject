@@ -1,8 +1,20 @@
 from rest_framework import serializers # import serializers from DRF
 from .models import Staff, Student, LegalGuardian, HousingRequest, RoommateRequest, RoomAssignment, AppUser
 
+class AppUserSerializer(serializers.ModelSerializer):
+
+    housingRequest = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
+    class Meta:
+        model = AppUser
+        fields = ["id", "fullName", "phoneNumber", "email", "roomAssignment", "housingRequest"]
+
+    def get_housingRequest(self, obj):
+        return [houseReq.id for houseReq in obj.housingRequest.all()]
+    
 class RoomAssignmentSerializer(serializers.ModelSerializer):
 
+    appUser = AppUserSerializer()
     class Meta:
         model = RoomAssignment
         fields = ["id", "createdDate", "startDate", "endDate", "buildingNumber", "roomNumber", "costPerSemester", "balanceDue", "appUser"]
@@ -27,17 +39,6 @@ class LegalGuardianSerializer(serializers.ModelSerializer):
         model = LegalGuardian
         fields = ["id", "fullName", "fullAddress", "phoneNumber", "email", "students"]    
 
-class AppUserSerializer(serializers.ModelSerializer):
-
-    roomAssignment = RoomAssignmentSerializer() # User serializer to get json data for roomAssignment
-    housingRequest = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-
-    class Meta:
-        model = AppUser
-        fields = ["id", "fullName", "phoneNumber", "email", "roomAssignment", "housingRequest"]
-
-    def get_housingRequest(self, obj):
-        return [houseReq.id for houseReq in obj.housingRequest.all()]
 
 class StudentSerializer(serializers.ModelSerializer):
 
@@ -63,9 +64,8 @@ class HousingRequestSerializer(serializers.ModelSerializer):
 
 class RoommateRequestSerializer(serializers.ModelSerializer):
 
-    housingRequest = HousingRequestSerializer() # Use serializer to get json data for housingRequest
     user = AppUserSerializer()
     
     class Meta:
         model = RoommateRequest
-        fields = ["id", "createdDate", "roommateFullName", "roommateEmail", "roommateGrade", "housingRequest", "user"]
+        fields = ["id", "createdDate", "roommateFullName", "roommateEmail", "roommateGrade", "user"]

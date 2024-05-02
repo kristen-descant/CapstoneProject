@@ -10,6 +10,8 @@ import IndexPage from "./pages/IndexPage.jsx";
 import RoommateRequestPage from "./pages/RoommateRequestPage.jsx";
 import ManageRequestsPage from "./pages/ManageRequestsPage.jsx";
 import SearchTenantsPage from "./pages/SearchTenantsPage.jsx";
+import LegalGuardianPage from "./pages/LegalGuardianPage.jsx";
+import RoomAssignmentsPage from "./pages/RoomAssignmentsPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -56,10 +58,14 @@ const router = createBrowserRouter([
           path: "searchtenants",
           element: <SearchTenantsPage/>
         },
-    //     {
-    //       path: "settings",
-    //       element: <UserSettingsPage/>
-    //     }
+        {
+          path: "legalguardian",
+          element: <LegalGuardianPage/>
+        },
+        {
+          path: "allroomassignments",
+          element: <RoomAssignmentsPage/>
+        }
       ],
     //   errorElement: <Error404Page />,
     },

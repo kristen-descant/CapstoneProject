@@ -106,6 +106,7 @@ export default function ManageRequestsPage() {
                                 <div className="flex flex-row">
                                     <p className="w-1/2">Created: {request.createdDate}</p>
                                     <p className="ml-3">Name: {request.user.fullName}</p>
+                                    <p className="ml-3">ID: {request.user.id}</p>
                                 </div>
                                 <div className="flex flex-row">
                                     <p className="w-1/2">Building Number: {request.buildingNumber}</p>
@@ -131,7 +132,7 @@ export default function ManageRequestsPage() {
                                     <p className="ml-3">Name: {request.user.fullName}</p>
                                 </div>
                                 <div className="flex flex-row">
-                                    <p className="w-full">Roommate Email: {request.roommateEmail}</p>
+                                    <p className="w-1/2">Roommate Email: {request.roommateEmail}</p>
                                 </div>
                                 <div className="flex flex-row">
                                     <p className="w-1/2">Roommate Name: {request.roommateFullName}</p>

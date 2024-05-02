@@ -33,9 +33,9 @@ export default function SearchTenantsPage() {
     };
 
     return (
-        <div>
+        <div className="m-5">
             <input
-            className="m-5 w-[20rem] border border-black"
+            className=" w-[20rem] border border-black"
                 type="text"
                 placeholder="Search by ID or Email"
                 value={searchQuery}
@@ -46,23 +46,30 @@ export default function SearchTenantsPage() {
                     }
                 }}
             />
-            <button className="bg-blue-500 text-white p-1 py-2 rounded-md" onClick={handleSearch}>Search</button>
-            <ul className="mt-8 overflow-y-scroll max-h-screen">
+            <button className="bg-blue-500 text-white p-1 rounded-md ml-3" onClick={handleSearch}>Search</button>
+            <ul className="mt-8 overflow-y-scroll max-h-[78vh]">
                 {filteredStudents.map((student) => (
-                    <li key={student.id} className="border-b border-gray-300 py-4">
-                        <p className="text-lg font-semibold">{student.fullName}</p>
-                        <p className="text-gray-600">{student.email}</p>
+                    <li key={student.id} className="border-b border-gray-300 py-4 flex flex-row">
+                        <div className="w-1/2">
+                            <p className="text-lg font-semibold">{student.fullName}</p>
+                            <p className="text-gray-600">{student.email}</p>
+                            <p className="text-gray-600">ID: {student.id}</p>
+                        </div>
                         {student.legalGuardian && (
-                            <div className="mt-2">
+                            <div className="w-1/2">
                                 <p className="font-semibold">Legal Guardian:</p>
-                                <p>{student.legalGuardian.fullName}</p>
-                                <p>{student.legalGuardian.fullAddress}</p>
-                                <p>{student.legalGuardian.phoneNumber}</p>
-                                <p>{student.legalGuardian.email}</p>
+                                <div className="flex flex-row">
+                                    <p className="w-1/2">{student.legalGuardian.fullName}</p>
+                                    <p>{student.legalGuardian.fullAddress}</p>
+                                </div>
+                                <div className="flex flex-row">
+                                    <p className="w-1/2">{student.legalGuardian.phoneNumber}</p>
+                                    <p>{student.legalGuardian.email}</p>
+                                </div>
                             </div>
                         )}
                         {student.title && (
-                            <div className="mt-2">
+                            <div className="">
                                 <p className="font-semibold">Title:</p>
                                 <p>{student.title}</p>
                             </div>

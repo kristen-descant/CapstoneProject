@@ -10,6 +10,7 @@ export default function HousingRequest() {
     const [floor, setFloor] = useState(null);
     const [accessible, setAccessible] = useState(null);
     const {user} = useOutletContext();
+    const [submissionMessage, setSubmissionMessage] = useState(null);
 
     const createHousingRequest = async (e) => {
         e.preventDefault();
@@ -27,6 +28,7 @@ export default function HousingRequest() {
                 createdDate: formattedDate,
             });
             console.log(response);
+            setSubmissionMessage("Housing request submitted successfully.");
         } catch (error) {
             console.log(error);
         };
@@ -100,7 +102,9 @@ export default function HousingRequest() {
                         </div>
                     </div>
                 </form>
-                
+                <div className="m-3">
+                    {submissionMessage && <p>{submissionMessage}</p>}
+                </div>
                 <div className="m-4 mt-8 flex flex-row">
                     <div>Create a roommate request?</div>
                     <a className="rounded ml-3 bg-sky-700 hover:bg-sky-900 text-white pl-1 pr-1" href="/roommaterequest" >Roommate Request</a>

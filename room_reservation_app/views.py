@@ -118,13 +118,15 @@ class Log_Out(UserPermissions):
     
 
 # View for legal guardian
-class Legal_Guardian(UserPermissions):
+class Legal_Guardian(APIView):
     # post method to create a legal guardian 
-    def post(self, request, id):
-        student = get_object_or_404(Student, id=id)
+    def post(self, request):
+        student = get_object_or_404(Student, id=request.user.id)
         newLegalGuardian = LegalGuardian.objects.create(**request.data)
         newLegalGuardian.student = student
         newLegalGuardian.save()
+        student.legalGuardian = newLegalGuardian
+        student.save()
 
         # serialize new legal guardian
         jsonNewLegalGuardian = LegalGuardianSerializer(newLegalGuardian).data
@@ -132,11 +134,12 @@ class Legal_Guardian(UserPermissions):
         return Response(jsonNewLegalGuardian)
     
     # get a legal guardian
-    def get(self, request, id):
-        
-        legal_guardian = get_object_or_404(Legal_Guardian, id=id)
-         # Check if a legal guardian is associated with the student
-        if legal_guardian:
+    def get(self, request):
+        print(request.user.id)
+        student = get_object_or_404(Student, id=request.user.id)
+        print(student)
+        if student.legalGuardian:
+            legal_guardian = student.legalGuardian
             # Serialize the legal guardian data
             serializedLegalGuardian = LegalGuardianSerializer(legal_guardian).data
             return Response(serializedLegalGuardian)
@@ -145,15 +148,17 @@ class Legal_Guardian(UserPermissions):
             return Response({'error': 'No legal guardian found for the student.'}, status=HTTP_404_NOT_FOUND)
 
     # delete legal guardian    
-    def delete(self, request, id):
-        legal_guardian = get_object_or_404(LegalGuardian, id=id)
+    def delete(self, request):
+        student = get_object_or_404(Student, id=request.user.id)
+        legal_guardian = student.legalGuardian
         legal_guardian.delete()
 
         return Response(status=HTTP_204_NO_CONTENT)
 
     # update legal guardian
-    def put(self, request, id):
-        legal_guardian = get_object_or_404(LegalGuardian, id=id)
+    def put(self, request):
+        student = get_object_or_404(Student, id=request.user.id)
+        legal_guardian = student.legalGuardian
 
         json_legal_guardian = LegalGuardianSerializer(legal_guardian, data=request.data, partial=True)
         if json_legal_guardian.is_valid():
@@ -337,3 +342,9 @@ class Admin_Room_Assignment(UserPermissions):
             return Response(json_roomate_req.data, status=HTTP_204_NO_CONTENT)
         else:
             return Response(json_roomate_req.errors, status=HTTP_400_BAD_REQUEST)
+
+class All_Room_Assignments(UserPermissions):
+    def get(self, request):
+        room_assignments = RoomAssignment.objects.order_by('-createdDate')
+        json_rooms = RoomAssignmentSerializer(room_assignments, many=True)
+        return Response(json_rooms.data)

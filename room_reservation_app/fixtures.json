@@ -1,0 +1,238 @@
+[
+    {
+      "model": "room_reservation_app.legalguardian",
+      "pk": 1,
+      "fields": {
+        "fullName": "Mary Johnson",
+        "fullAddress": "123 Main St",
+        "phoneNumber": "555-1234",
+        "email": "mary@example.com"
+      }
+    },
+    {
+      "model": "room_reservation_app.legalguardian",
+      "pk": 2,
+      "fields": {
+        "fullName": "John Smith",
+        "fullAddress": "456 Elm St",
+        "phoneNumber": "555-5678",
+        "email": "john@example.com"
+      }
+    },
+    {
+        "model": "room_reservation_app.legalguardian",
+        "pk": 3,
+        "fields": {
+          "fullName": "Jacob Stone",
+          "fullAddress": "457 Laurel St",
+          "phoneNumber": "555-7777",
+          "email": "jacob@example.com"
+        }
+      },
+      {
+        "model": "room_reservation_app.legalguardian",
+        "pk": 4,
+        "fields": {
+          "fullName": "Josh Hardy",
+          "fullAddress": "222 Harbor St",
+          "phoneNumber": "555-1111",
+          "email": "josh@example.com"
+        }
+      },
+      {
+        "model": "room_reservation_app.legalguardian",
+        "pk": 5,
+        "fields": {
+          "fullName": "Amanda Nunez",
+          "fullAddress": "9999 Langdon St",
+          "phoneNumber": "555-9999",
+          "email": "amanda@example.com"
+        }
+      },
+    {
+      "model": "room_reservation_app.staff",
+      "pk": 1,
+      "fields": {
+        "fullName": "Emily Davis",
+        "email": "emily@example.com",
+        "phoneNumber": "555-2345",
+        "title": "Administrator"
+      }
+    },
+    {
+      "model": "room_reservation_app.staff",
+      "pk": 2,
+      "fields": {
+        "fullName": "Michael Wilson",
+        "email": "michael@example.com",
+        "phoneNumber": "555-6789",
+        "title": "Coordinator"
+      }
+    },
+    {
+        "model": "room_reservation_app.staff",
+        "pk": 3,
+        "fields": {
+          "fullName": "Mary Miller",
+          "email": "mary@example.com",
+          "phoneNumber": "555-5445",
+          "title": "Professor"
+        }
+      },
+      {
+        "model": "room_reservation_app.staff",
+        "pk": 4,
+        "fields": {
+          "fullName": "Mikayla Jerrel",
+          "email": "mikayla@example.com",
+          "phoneNumber": "555-6781",
+          "title": "Janitorial"
+        }
+      },
+      {
+        "model": "room_reservation_app.staff",
+        "pk": 5,
+        "fields": {
+          "fullName": "Courtney Black",
+          "email": "courtney@example.com",
+          "phoneNumber": "444-6789",
+          "title": "HR Manager"
+        }
+      },
+
+    {
+      "model": "room_reservation_app.student",
+      "pk": 1,
+      "fields": {
+        "fullName": "Sophia Johnson",
+        "email": "sophia@example.com",
+        "phoneNumber": "555-3456",
+        "legalGuardian": 1
+      }
+    },
+    {
+      "model": "room_reservation_app.student",
+      "pk": 2,
+      "fields": {
+        "fullName": "William Brown",
+        "email": "william@example.com",
+        "phoneNumber": "555-7890",
+        "legalGuardian": 2
+      }
+    },
+    {
+        "model": "room_reservation_app.student",
+        "pk": 3,
+        "fields": {
+          "fullName": "Willy Williamson",
+          "email": "willy@example.com",
+          "phoneNumber": "999-7890",
+          "legalGuardian": 3
+        }
+      },
+      {
+        "model": "room_reservation_app.student",
+        "pk": 4,
+        "fields": {
+          "fullName": "Jalaya Brown",
+          "email": "jalaya@example.com",
+          "phoneNumber": "987-7890",
+          "legalGuardian": 4
+        }
+      },
+      {
+        "model": "room_reservation_app.student",
+        "pk": 5,
+        "fields": {
+          "fullName": "Bobby Bobson",
+          "email": "bobby@example.com",
+          "phoneNumber": "545-7890",
+          "legalGuardian": 5
+        }
+      },
+
+    {
+      "model": "room_reservation_app.housingrequest",
+      "pk": 1,
+      "fields": {
+        "createdDate": "2024-05-05",
+        "buildingNumber": 123,
+        "unitSize": 2,
+        "floor": 3,
+        "accessible": true,
+        "user": 1
+      }
+    },
+    {
+      "model": "room_reservation_app.housingrequest",
+      "pk": 2,
+      "fields": {
+        "createdDate": "2024-05-06",
+        "buildingNumber": 456,
+        "unitSize": 1,
+        "floor": 1,
+        "accessible": false,
+        "user": 2
+      }
+    },
+    {
+        "model": "room_reservation_app.housingrequest",
+        "pk": 3,
+        "fields": {
+          "createdDate": "2024-05-06",
+          "buildingNumber": 456,
+          "unitSize": 1,
+          "floor": 1,
+          "accessible": false,
+          "user": 3
+        }
+      },
+      {
+        "model": "room_reservation_app.housingrequest",
+        "pk": 4,
+        "fields": {
+          "createdDate": "2024-05-06",
+          "buildingNumber": 444,
+          "unitSize": 1,
+          "floor": 1,
+          "accessible": true,
+          "user": 4
+        }
+      },
+      {
+        "model": "room_reservation_app.housingrequest",
+        "pk": 5,
+        "fields": {
+          "createdDate": "2024-05-08",
+          "buildingNumber": 121,
+          "unitSize": 1,
+          "floor": 1,
+          "accessible": false,
+          "user": 5
+        }
+      },
+
+    {
+      "model": "room_reservation_app.roommaterequest",
+      "pk": 1,
+      "fields": {
+        "createdDate": "2024-05-07",
+        "roommateFullName": "Jessica Adams",
+        "roommateEmail": "jessica@example.com",
+        "roommateGrade": "Senior",
+        "user": 1
+      }
+    },
+    {
+      "model": "room_reservation_app.roommaterequest",
+      "pk": 2,
+      "fields": {
+        "createdDate": "2024-05-08",
+        "roommateFullName": "David Roberts",
+        "roommateEmail": "david@example.com",
+        "roommateGrade": "Junior",
+        "user": 2
+      }
+    }
+  ]
+  

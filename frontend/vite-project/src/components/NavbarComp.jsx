@@ -10,11 +10,14 @@ export default function NavbarComp(
 
 
   return (
-    <nav className="ml-0 pl-5 mt-0 pt-5 overflow-hidden border-r bg-sky-700 w-full min-h-screen flex flex-col z-[10] ">
+    <nav className="ml-0 pl-5 mt-0 pt-5 overflow-hidden border-r bg-sky-700 w-full h-full flex flex-col z-[10] ">
       <ul className="flex flex-col">
         <li className="w-[90%] overflow-hidden shadow mb-2 bg-white rounded-md text-center hover:bg-sky-900 hover:text-white"><Link to="home">Home</Link></li>
         <li className="w-[90%] overflow-hidden shadow mb-2 bg-white rounded-md text-center hover:bg-sky-900 hover:text-white"><Link to="housingrequest">Housing Request</Link></li>
         <li className="w-[90%] overflow-hidden bg-white rounded text-center shadow-md mb-2 hover:bg-sky-900 hover:text-white"><Link to="roommaterequest">Roommate Request</Link></li>
+        {isStudent && 
+          <li className="w-[90%] overflow-hidden bg-white rounded text-center shadow-md mb-2 hover:bg-sky-900 hover:text-white"><Link to="legalguardian">Legal Guardian</Link></li>
+        }
       </ul>
       {isStaff && 
         <div>
@@ -24,7 +27,7 @@ export default function NavbarComp(
           <ul className="flex flex-col">
             <li className="w-[90%] overflow-hidden shadow mb-2 bg-white rounded-md text-center hover:bg-sky-900 hover:text-white"><Link className="" to="managerequests">Manage Requests</Link></li>
             <li className="w-[90%] overflow-hidden bg-white rounded text-center shadow-md mb-2 hover:bg-sky-900 hover:text-white"><Link to="searchtenants">Tenant Search</Link></li>
-            <li className="w-[90%] overflow-hidden bg-white rounded text-center shadow-md mb-2 hover:bg-sky-900 hover:text-white"><Link to="">Room Assignments</Link></li>
+            <li className="w-[90%] overflow-hidden bg-white rounded text-center shadow-md mb-2 hover:bg-sky-900 hover:text-white"><Link to="allroomassignments">Room Assignments</Link></li>
           </ul>
         </div>
       }
